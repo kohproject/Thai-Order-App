@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <style type="text/css">
+
+body{
+    margin:0px;
+    font-family:"Open Sans";
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+  
+}
+body *{
+  box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color:#333;
+}
+.fl{float:left}
+.fr{float:right}
+.cl{clear:both}
+.over{overflow:hidden}
+.bold{font-weight:bold} 
+
+ul,ol,
+ul >li,
+ol >li{
+    margin:0px;padding:0px;
+    list-style: none;
+}
+.wide10{width:9.99%}
+.wide20{width:19.99%}
+.wide30{width:29.99%}
+.wide40{width:39.99%}
+.wide50{width:49.99%}
+.wide60{width:59.99%}
+.wide70{width:69.99%}
+.wide80{width:79.99%}
+.wide90{width:89.99%}
+.wide100{width:100%}
+
+/* flex start */
+ul,ol,
+.flex{
+    display:flex;
+}
+ol,
+.flex.col{
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.flex.center,
+.flex.col.center{
+    justify-content: center;
+    justify-items: center;
+}
+.flexaround{
+    justify-content: space-around;
+}
+.flexbetween{
+    justify-content: space-between;
+}
+.flexwrap{
+    flex-wrap: wrap;
+}
+/* flex end */
+
+
+    </style>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body id="body">
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+
+
+    <script type="text/javascript">
+
+
+function setSectionScroll(){
+
+    /* ===== OBSERVE ++ SECTION BY SCROLL =====*/
+    let callback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.intersectionRatio > 0) {
+                if (entry.isIntersecting) {
+                    let $type = entry.target.getAttribute('id');
+                    let $nav = document.getElementById('nav_menu');
+                    if($nav.getElementsByClassName('active')[0]){
+                        $nav.getElementsByClassName('active')[0].classList.remove('active');
+                    }
+                    $nav.getElementsByClassName('link__'+$type.replace('sect_',''))[0].classList.add('active');
+                }
+            }
+        });
+    };
+    /* ================ ISMOBILE ================== */
+    let isMobile = (function(){
+       return (window.innerWidth < 600) ? true : false;
+    }());
+
+    let $rootMargin = (isMobile) ? '500px' : '0px';
+
+    let options = {
+        //root: document.querySelector('.full-container'),
+        root: null,
+        rootMargin: $rootMargin,
+        threshold: 1.0
+    };
+
+    let observer = new IntersectionObserver(callback, options);
+    let targs = document.querySelectorAll('.sect');
+
+    targs.forEach(targ => observer.observe(targ));
+}
+
+setTimeout(() => setSectionScroll(),400)
+
+
+    </script>
+  </body>
+</html>
